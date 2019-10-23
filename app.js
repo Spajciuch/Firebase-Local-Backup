@@ -41,6 +41,8 @@ readLine.question("===MENU===\n1.Download all data form firebase\n2.Automaticall
             })
         })
     } else if (mode == "2") {
+        let i = 0;
+
         console.log(chalk.blue("[firebase] Listening..."))
 
         const dataListener = database().ref(`/`)
@@ -52,7 +54,12 @@ readLine.question("===MENU===\n1.Download all data form firebase\n2.Automaticall
 
             fs.writeFile("data.json", dataString, function (err, res) {
                 if (err) return console.log(chalk.red(`[error] ${err}`))
-                else return console.log(chalk.green(`[firebase] Saved new data`))
+                else {
+                    process.stdout.clearLine()
+                    process.stdout.cursorTo(0);
+                    process.stdout.write(chalk.green(`[firebase] Saved new data [${i}]`))
+                    i++
+                }
             })
         })
     }
